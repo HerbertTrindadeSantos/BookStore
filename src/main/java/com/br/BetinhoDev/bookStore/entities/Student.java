@@ -21,6 +21,11 @@ public class Student {
     public Student() {
     }
 
+    public Student(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
+    }
+
     public Student(Long id, String name, String surname) {
         this.id = id;
         this.name = name;
