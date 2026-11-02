@@ -1,12 +1,17 @@
 package com.br.BetinhoDev.bookStore.entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_student")
-public class Student {
+public class Student implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +22,10 @@ public class Student {
 
     @Column(length = 40, nullable = false)
     private String surname;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "student",fetch = FetchType.LAZY)
+    private Set<Loan> loans = new HashSet<>();
 
     public Student() {
     }
@@ -50,6 +59,10 @@ public class Student {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public Set<Loan> getLoans() {
+        return loans;
     }
 
     @Override
