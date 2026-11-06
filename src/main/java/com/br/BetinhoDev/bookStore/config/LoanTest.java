@@ -1,17 +1,17 @@
 package com.br.BetinhoDev.bookStore.config;
 
-import com.br.BetinhoDev.bookStore.entities.Author;
-import com.br.BetinhoDev.bookStore.entities.Book;
-import com.br.BetinhoDev.bookStore.entities.Category;
-import com.br.BetinhoDev.bookStore.entities.Student;
+import com.br.BetinhoDev.bookStore.entities.*;
 import com.br.BetinhoDev.bookStore.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 
 @Configuration
 public class StudentTest implements CommandLineRunner {
+
+    private final static DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
 
     private StudentRepository studentRepository;
     private AuthorRepository authorRepository;
@@ -45,6 +45,10 @@ public class StudentTest implements CommandLineRunner {
         Book b1 = new Book("FranksTein","Um livro sobre um morto vivo",c1);
         Book b2 = new Book("Os tres mosqueteiros", "Um conjunto de 3 homens que lutam pela igualdade",c2);
         Book b3 = new Book("Verity", "Um drama no qual no sabemos a quem é o psicopata",c3);
+
+        Loan l1 = new Loan("");
+        Loan l2 = new Loan("");
+        Loan l3 = new Loan("");
 
         c1.getBooks().add(b1);
         c2.getBooks().add(b2);
