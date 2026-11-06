@@ -1,6 +1,7 @@
 
 package com.br.BetinhoDev.bookStore.entities;
 
+import com.br.BetinhoDev.bookStore.entities.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -31,6 +32,8 @@ public class Loan implements Serializable {
     @JoinColumn(name = "student_id")
     private Student student;
 
+    private Integer status;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -49,11 +52,13 @@ public class Loan implements Serializable {
         this.student = student;
     }
 
-    public Loan(Long id, Instant checkIn, Instant checkOut, Student student) {
+    public Loan(Long id, Instant checkIn, Instant checkOut, Student student, Status status, Set<Book> books) {
         this.id = id;
         this.checkIn = checkIn;
         this.checkOut = checkOut;
         this.student = student;
+        setStatus(status);
+        this.books = books;
     }
 
     public Long getId() {
@@ -92,6 +97,16 @@ public class Loan implements Serializable {
         return books;
     }
 
+    public Status getStatus() {
+        return Status.valueOf(status);
+    }
+
+    public void setStatus(Status status) {
+        this.status = status.getCode();
+    }
+
+
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -111,6 +126,7 @@ public class Loan implements Serializable {
                 ", checkIn=" + checkIn +
                 ", checkOut=" + checkOut +
                 ", student=" + student +
+                ", status="+ status+
                 '}';
     }
 }
